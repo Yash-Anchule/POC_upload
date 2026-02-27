@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+coverage/
+
+# Environment files
+.env
+.env.*
+server/.env
+client/.env
+
+# Logs
+*.log
+logs/
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime uploads (optional; remove if you need tracked sample files)
+server/uploads/

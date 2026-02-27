@@ -1,0 +1,49 @@
+import api from './api';
+
+export const authService = {
+    login: (data) => api.post('/auth/login', data),
+    register: (data) => api.post('/auth/register', data),
+    refresh: (data) => api.post('/auth/refresh', data),
+    logout: () => api.post('/auth/logout'),
+    getMe: () => api.get('/auth/me'),
+};
+
+export const pocService = {
+    getAll: (params) => api.get('/pocs', { params }),
+    getById: (id) => api.get(`/pocs/${id}`),
+    create: (data) => {
+        const formData = new FormData();
+        Object.entries(data).forEach(([key, value]) => {
+            if (key === 'techStack') {
+                formData.append(key, JSON.stringify(value));
+            } else if (value !== undefined && value !== null) {
+                formData.append(key, value);
+            }
+        });
+        return api.post('/pocs', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+    },
+    update: (id, data) => {
+        const formData = new FormData();
+        Object.entries(data).forEach(([key, value]) => {
+            if (key === 'techStack') {
+                formData.append(key, JSON.stringify(value));
+            } else if (value !== undefined && value !== null) {
+                formData.append(key, value);
+            }
+        });
+        return api.put(`/pocs/${id}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+    },
+    delete: (id) => api.delete(`/pocs/${id}`),
+};
+
+export const userService = {
+    getAll: (params) => api.get('/users', { params }),
+    getById: (id) => api.get(`/users/${id}`),
+    create: (data) => api.post('/users', data),
+    update: (id, data) => api.put(`/users/${id}`, data),
+    delete: (id) => api.delete(`/users/${id}`),
+};
